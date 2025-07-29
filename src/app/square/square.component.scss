@@ -1,9 +1,28 @@
-// .square{
-//     height: 200px;
-//     width: 200px;
-// }
+.square {
+  background: transparent;
+  border: none;
+  font-size: 2.5rem;
+  color: inherit;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}
 
-// .square:hover {
-//   background: rgba(255, 255, 255, 0.2);
-//   box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-// }
+// Different colors for X and O using Angular class binding
+.x-player {
+  color: #ff6b6b !important;
+}
+
+.o-player {
+  color: #4ecdc4 !important;
+}

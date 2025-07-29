@@ -1,17 +1,27 @@
-<h1>Current Player:{{player}}</h1>
+<div class="game-header">
+    <h1>Tic Tac Toe</h1>
+    
+    <div class="game-status">
+        <h2 *ngIf="winner" class="winner-message">
+            🎉 Player {{winner}} Wins! 🎉
+        </h2>
+        <h2 *ngIf="isDraw" class="draw-message">
+            🤝 It's a Draw! 🤝
+        </h2>
+        <h2 *ngIf="!winner && !isDraw" class="current-player">
+            Current Player: <span class="player-{{player.toLowerCase()}}">{{player}}</span>
+        </h2>
+    </div>
+    
+    <button class="new-game-btn" (click)="newGame()">
+        {{winner || isDraw ? 'Play Again' : 'Restart Game'}}
+    </button>
+</div>
 
-<button (click)="newGame()">Start new Game</button>
-
-
-<h2 *ngIf="winner">
-    Player {{winner}} won the game !
-</h2>
-
-<main>
-    <app-square class="mysquare"
-    *ngFor="let val of squares; let i=index"
-    [value]="val"
-    (click)="makeMove(i)" >
-
+<main class="game-board">
+    <app-square 
+        *ngFor="let val of squares; let i=index"
+        [value]="val"
+        (click)="makeMove(i)">
     </app-square>
 </main>

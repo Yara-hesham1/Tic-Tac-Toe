@@ -5,104 +5,185 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  position: fixed;           // 🔑 Full page coverage
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-
+  min-height: 100vh;
   padding: 2rem;
   background: linear-gradient(135deg, #141e30, #243b55);
   font-family: 'Poppins', sans-serif;
   color: #fff;
   box-sizing: border-box;
-  overflow: auto;
 }
 
-
-h1, h2 {
-  margin: 1rem 0;
+.game-header {
   text-align: center;
-  font-weight: 600;
+  margin-bottom: 2rem;
+  
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #92fe9d, #00c9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
 }
 
-button {
+.game-status {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  h2 {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .winner-message {
+    color: #92fe9d;
+    animation: celebrate 0.6s ease-in-out;
+  }
+  
+  .draw-message {
+    color: #ffd93d;
+  }
+  
+  .current-player {
+    .player-x {
+      color: #ff6b6b;
+    }
+    
+    .player-o {
+      color: #4ecdc4;
+    }
+  }
+}
+
+@keyframes celebrate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.new-game-btn {
   margin: 1rem 0;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
   border: none;
   border-radius: 12px;
-  background: #00c9ff;
   background: linear-gradient(to right, #92fe9d, #00c9ff);
   color: #000;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
 }
 
-button:hover {
-  transform: scale(1.05);
-}
-
-main {
+.game-board {
   display: grid;
-  grid-template-columns: repeat(3, minmax(80px, 100px));
-  grid-gap: 15px;
+  grid-template-columns: repeat(3, 120px);
+  grid-template-rows: repeat(3, 120px);
+  gap: 15px;
   margin-top: 1rem;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
 app-square {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
-  border-radius: 20px;
+  border-radius: 15px;
   cursor: pointer;
   backdrop-filter: blur(6px);
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  transition: all 0.6s ease-in-out;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
   user-select: none;
+  position: relative;
+  overflow: hidden;
 
+  &:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
 }
-
-// app-square:hover {
-//   background: rgba(255, 255, 255, 0.2);
-//   transform: scale(1.05);
-// }
-
-
-
 
 app-square::ng-deep button {
   background: transparent;
   border: none;
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: inherit;
   cursor: pointer;
   width: 100%;
   height: 100%;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+  }
 }
 
-// app-square::ng-deep .x {
-//   color: #ff6b6b;
-// }
-
-// app-square::ng-deep .o {
-//   color: #4ecdc4;
-// }
-
 /* Mobile responsive */
-@media (max-width: 600px) {
-  main {
-    grid-template-columns: repeat(3, 80px);
+@media (max-width: 768px) {
+  .game-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .game-board {
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
     gap: 10px;
+    padding: 15px;
+  }
+
+  app-square {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    padding: 1rem;
+  }
+  
+  .game-header h1 {
+    font-size: 2rem;
+  }
+  
+  .game-status h2 {
+    font-size: 1.2rem;
+  }
+  
+  .game-board {
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(3, 80px);
+    gap: 8px;
+    padding: 10px;
   }
 
   app-square {

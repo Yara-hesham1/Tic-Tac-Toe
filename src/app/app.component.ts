@@ -11,6 +11,6 @@ import { BoardComponent } from "./board/board.component";
   styleUrls: ['./app.component.scss'],
   
 })
-export class App {
-  protected title = 'myapp';
+export class AppComponent {
+  title = 'tic-tac-toe';
 }

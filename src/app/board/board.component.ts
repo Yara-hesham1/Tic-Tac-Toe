@@ -18,7 +18,7 @@ import { CommonModule } from "@angular/common";
 export class BoardComponent implements OnInit{
     squares!:any[]
     xIsNext!:boolean;
-    winner!:string;
+    winner!:string | null;
 
     constructor(){
 
@@ -32,7 +32,7 @@ export class BoardComponent implements OnInit{
 
     newGame(){
         this.squares=Array(9).fill(null);
-        this.winner!=null;
+        this.winner=null;
         this.xIsNext=true;
     }
 
@@ -49,7 +49,7 @@ export class BoardComponent implements OnInit{
         this.winner=this.calculateWinner();
     }
 
-    calculateWinner(){
+    calculateWinner(): string | null {
         const lines=[
             [0,1,2],
             [3,4,5],
@@ -62,12 +62,16 @@ export class BoardComponent implements OnInit{
         ];
 
         for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (this.squares[a] && 
-        this.squares[a] === this.squares[b] && this.squares[a] === this.squares[c]) {
-      return this.squares[a];
-    }
-  }
-  return null;
+            const [a, b, c] = lines[i];
+            if (this.squares[a] && 
+                this.squares[a] === this.squares[b] && this.squares[a] === this.squares[c]) {
+                return this.squares[a];
+            }
         }
+        return null;
     }
+
+    get isDraw() {
+        return !this.winner && this.squares.every(square => square !== null);
+    }
+}
