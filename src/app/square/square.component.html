@@ -1,3 +1,4 @@
 <button class="square" 
         [class.x-player]="value === 'X'" 
-        [class.o-player]="value === 'O'">{{ value }}</button>
+        [class.o-player]="value === 'O'"
+        (click)="onClick()">{{ value }}</button>
